@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('game_orders', function (Blueprint $table) {
+        Schema::create('failed_jobs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id');
-            $table->decimal('shipping_cost');
-            $table->decimal('order_cost');
-            $table->foreignId('game_id');
-            $table->timestamp('payed_at')->useCurrent();
+            $table->string('uuid')->unique();
+            $table->text('connection');
+            $table->text('queue');
+            $table->longText('payload');
+            $table->longText('exception');
+            $table->timestamp('failed_at')->useCurrent();
         });
     }
 
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('game_orders');
+        Schema::dropIfExists('failed_jobs');
     }
 };

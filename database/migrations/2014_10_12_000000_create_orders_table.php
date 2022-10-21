@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('game_orders', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('game_id');
-            $table->foreignId('customer_id');
+            $table->foreignId('user_id');
             $table->decimal('order_cost');
             $table->uuid('uuid')->unique();
         });
