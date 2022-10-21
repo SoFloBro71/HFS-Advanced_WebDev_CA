@@ -16,8 +16,8 @@ class GameController extends Controller
     public function index()
     {
         //Fetch motes in order of when they were last updated - latest updated returned first
-        $games = Game::where('customer_id', Auth::id())->latest('updated_at')->paginate();
-        // dd($notes);
+        $games = Game::where('user_id', Auth::id())->latest('updated_at')->paginate();
+        // dd($games);
         return view('games.index')->with('games', $games);
     }
 
@@ -48,12 +48,12 @@ class GameController extends Controller
             // Ensure you have the use statement for 
             // Illuminate\Support\Str at the top of this file.
             'uuid' => Str::uuid(),
-            'customer_id' => Auth::id(),
+            'user_id' => Auth::id(),
             'title' => $request->title,
             'text' => $request->text
         ]);
 
-        return to_route('gamess.index');
+        return to_route('games.index');
     }
 
     /**
@@ -64,11 +64,11 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        // /NOTE | findOrFail() firstOrFail() return a 404 not found view if not found.
+        // /Game | findOrFail() firstOrFail() return a 404 not found view if not found.
         // This is OK for web application development, but not for API development as
         // API's return JSON not Views.
 
-        if($game->customer_id != Auth::id()) {
+        if($game->user_id != Auth::id()) {
             return abort(403);
         }
 
@@ -83,7 +83,7 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
-        if($game->customer_id != Auth::id()) {
+        if($game->user_id != Auth::id()) {
             return abort(403);
         }
 
@@ -100,7 +100,7 @@ class GameController extends Controller
     public function update(Request $request, Game $game)
     {
 
-        if($game->customer_id != Auth::id()) {
+        if($game->user_id != Auth::id()) {
             return abort(403);
         }
 
@@ -127,7 +127,7 @@ class GameController extends Controller
     public function destroy(Game $game)
     {
 
-        if($game->customer_id != Auth::id()) {
+        if($game->user_id != Auth::id()) {
             return abort(403);
         }
 
