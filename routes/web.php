@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,8 +17,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/games', function () {
+    return view('games');
+})->middleware(['auth', 'verified'])->name('games');
 
 require __DIR__.'/auth.php';
+
+
+Route::get('/home', function () {
+    return view('home');
+});
+
+
+Route::resource("/games", GameController::class)->middleware(['auth']);
+
+Route::get('/index', [GameController::class, "index"])->middleware(["auth"]);
