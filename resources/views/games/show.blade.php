@@ -28,10 +28,31 @@
                     <button type="submit" class="btn btn-danger ml-4" onclick="return confirm('Are you sure you wish to delete this Game?')">Delete Game</button>
             </div>
             <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
-                <h2 class="font-bold text-4xl">
-                    {{ $game->title }}
-                </h2>
-                <p class="mt-6 whitespace-">{{$game->text}}</p>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <td rowspan="6">
+                                <img src="{{asset)('storage/images/' . $game->game_image)}}" width="150"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Title </td>
+                            <td> {{ $game->title}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Author </td>
+                            <td> {{ $game->author}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Description </td>
+                            <td> {{ $game->description}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Category </td>
+                            <td> {{ $game->category}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

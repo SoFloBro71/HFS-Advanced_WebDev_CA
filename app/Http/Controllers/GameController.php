@@ -40,9 +40,20 @@ class GameController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:120',
-            'text' => 'required'
+            'title' => 'required',
+            'description' => 'required|max:500',
+            'category' => 'required',
+            'developer' => 'required',
+            'game_image' => 'file|image|dimensions:width300,height=400',
+            'game_image' => 'file|image',
         ]);
+
+        $game_image = $request->file('game_image');
+        $extension = $game_image->getClientOriginalExtension();
+        $filename = date('Y-m-d-His') . '_' . $request->input('title') . '.' . $extension;
+
+
+        $path = $game_image->storeAs('public/images', $filename);
 
         Game::create([
             // Ensure you have the use statement for 
@@ -50,7 +61,11 @@ class GameController extends Controller
             'uuid' => Str::uuid(),
             'user_id' => Auth::id(),
             'title' => $request->title,
-            'text' => $request->text
+            'description' => $request->description,
+            'category' => $request->category,
+            'game_image' => $filename,
+            'developer' => $request->developer
+
         ]);
 
         return to_route('games.index');

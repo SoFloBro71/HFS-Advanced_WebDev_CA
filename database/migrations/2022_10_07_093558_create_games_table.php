@@ -18,7 +18,9 @@ return new class extends Migration
             $table->uuid('uuid');
             $table->foreignId('user_id')->constrained();
             $table->string('title');
-            $table->longText('text');
+            $table->longText('description');
+            $table->string('category');
+            $table->string('developer');
             $table->timestamps();
         });
     }
