@@ -21,6 +21,7 @@ return new class extends Migration
             $table->longText('description');
             $table->string('category');
             $table->string('developer');
+            $table->string('game_image');
             $table->timestamps();
         });
     }
