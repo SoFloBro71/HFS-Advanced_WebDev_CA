@@ -13,21 +13,49 @@
                     @method('put')
                     @csrf
                     <x-text-input
-                        type="text"
-                        name="title"
-                        field="title"
-                        placeholder="Title"
-                        class="w-full"
-                        autocomplete="off"
-                        :value="@old('title', $game->title)"></x-text-input>
+                    type="text"
+                    name="title"
+                    field="title"
+                    placeholder="Title"
+                    class="w-full"
+                    autocomplete="off"
+                    :value="@old('title')"></x-text-input>
 
-                    <x-textarea
-                        name="text"
-                        rows="10"
-                        field="text"
-                        placeholder="Start typing here..."
-                        class="w-full mt-6"
-                        :value="@old('text', $game->text)"></x-textarea>
+                    <x-text-input
+                    type="text"
+                    name="developer"
+                    field="developer"
+                    placeholder="Developer"
+                    class="w-full"
+                    autocomplete="off"
+                    :value="@old('developer')"></x-text-input>
+
+                    <textarea
+                    name="description"
+                    rows="10"
+                    field="description"
+                    placeholder="Start typing here..."
+                    class="w-full mt-6"
+                    >{{@old('description')}}</textarea>
+
+                    <select name="category" id="category" field="category">
+                        <option value="">{{($games->genre === '') ? 'Selected' : ''}} Select Genre</option>
+                        <option value="horror" {{($games->genre === 'horror') ? 'Selected' : ''}}>Horror</option>
+                        <option value="act-ad" {{($games->genre === 'act-ad') ? 'Selected' : ''}}>Action-Adventure</option>
+                        <option value="thriller" {{($games->genre === 'thriller') ? 'Selected' : ''}}>Thriller</option>
+                        <option value="evg" {{($games->genre === 'evg') ? 'Selected' : ''}}>Episodic Video Game</option>
+                        <option value="puzzle" {{($games->genre === 'puzzle') ? 'Selected' : ''}}>Puzzle</option>
+                        <option value="rgp" {{($games->genre === 'rpg') ? 'Selected' : ''}}>RPG</option>
+                    </select>
+
+                    <input
+                    type="file"
+                    name="game_image"
+                    field="game_image"
+                    placeholder="Game Cover"
+                    class="w-full mt-6"
+                    
+                    />
 
                     <x-primary-button class="mt-6">Save Game</x-primary-button>
                 </form>
