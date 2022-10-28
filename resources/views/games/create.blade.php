@@ -26,32 +26,34 @@
                         placeholder="Developer"
                         class="w-full"
                         autocomplete="off"
-                        :value="@old('title')"></x-text-input>
+                        :value="@old('developer')"></x-text-input>
 
-                    <x-textarea
-                        name="text"
+                        <textarea
+                        name="description"
                         rows="10"
                         field="description"
                         placeholder="Start typing here..."
                         class="w-full mt-6"
-                        :value="@old('description')"></x-textarea>
+                        >{{@old('description')}}</textarea>
 
-                        <x-text-input
-                        type="text"
-                        name="categoery"
-                        field="category"
-                        placeholder="Category"
-                        class="w-full"
-                        autocomplete="off"
-                        :value="@old('title')"></x-text-input>
+                        <select name="category" id="category" field="category">
+                            <option value="">Select Genre</option>
+                            <option value="horror">Horror</option>
+                            <option value="act-ad">Action-Adventure</option>
+                            <option value="thriller">Thriller</option>
+                            <option value="evg">Episodic Video Game</option>
+                            <option value="puzzle">Puzzle</option>
+                            <option value="rgp">RPG</option>
 
-                        <x-text-input
+                        </select>
+
+                        <input
                         type="file"
                         name="game_image"
                         field="game_image"
                         placeholder="Game Cover"
-                        class="w-full mt-6">
-                        </x-text-input>
+                        class="w-full mt-6"
+                        />
 
                     <x-primary-button class="mt-6">Save Game</x-primary-button>
                 </form>

@@ -32,7 +32,7 @@
                     <tbody>
                         <tr>
                             <td rowspan="6">
-                                <img src="{{asset)('storage/images/' . $game->game_image)}}" width="150"/>
+                                <img src="{{asset('storage/images/' . $game->game_image)}}" width="150"/>
                             </td>
                         </tr>
                         <tr>
@@ -40,8 +40,8 @@
                             <td> {{ $game->title}}</td>
                         </tr>
                         <tr>
-                            <td class="font-bold">Author </td>
-                            <td> {{ $game->author}}</td>
+                            <td class="font-bold">Developer </td>
+                            <td> {{ $game->developer}}</td>
                         </tr>
                         <tr>
                             <td class="font-bold">Description </td>
@@ -49,7 +49,7 @@
                         </tr>
                         <tr>
                             <td class="font-bold">Category </td>
-                            <td> {{ $game->category}}</td>
+                            <td >{{ $game->category}}</td>
                         </tr>
                     </tbody>
                 </table>
