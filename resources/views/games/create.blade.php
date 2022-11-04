@@ -19,6 +19,10 @@
                         autocomplete="off"
                         :value="@old('title')"></x-text-input>
 
+                        @if ($errors->has('title'))
+                        <p class="error">{{$errors->first('title')}}</p>
+                    @endif
+
                         <x-text-input
                         type="text"
                         name="developer"
@@ -28,6 +32,10 @@
                         autocomplete="off"
                         :value="@old('developer')"></x-text-input>
 
+                        @if ($errors->has('developer'))
+                        <p class="error">{{$errors->first('developer')}}</p>
+                    @endif
+
                         <textarea
                         name="description"
                         rows="10"
@@ -35,6 +43,10 @@
                         placeholder="Start typing here..."
                         class="w-full mt-6"
                         >{{@old('description')}}</textarea>
+
+                        @if ($errors->has('description'))
+                        <p class="error">{{$errors->first('description')}}</p>
+                    @endif
 
                         <select name="category" id="category" field="category">
                             <option value="">Select Genre</option>
@@ -44,16 +56,18 @@
                             <option value="evg">Episodic Video Game</option>
                             <option value="puzzle">Puzzle</option>
                             <option value="rgp">RPG</option>
-
                         </select>
+
+
 
                         <input
                         type="file"
                         name="game_image"
                         field="game_image"
                         placeholder="Game Cover"
-                        class="w-full mt-6"
-                        />
+                        class="w-full mt-6">
+                    
+
 
                     <x-primary-button class="mt-6">Save Game</x-primary-button>
                 </form>

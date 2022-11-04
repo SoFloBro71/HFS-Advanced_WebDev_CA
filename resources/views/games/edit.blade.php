@@ -9,7 +9,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
-                <form action="{{ route('games.update', $game) }}" method="post">
+                <form action="{{ route('games.update', $game) }}" method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <x-text-input
@@ -19,7 +19,12 @@
                     placeholder="Title"
                     class="w-full"
                     autocomplete="off"
-                    :value="@old('title')"></x-text-input>
+                    {{-- :value="@old('title')" --}}
+                    value="{{ old('title', $game->title) }}"></x-text-input>
+
+                    @if ($errors->has('title'))
+                        <p class="error">{{$errors->first('title')}}</p>
+                    @endif
 
                     <x-text-input
                     type="text"
@@ -28,7 +33,13 @@
                     placeholder="Developer"
                     class="w-full"
                     autocomplete="off"
-                    :value="@old('developer')"></x-text-input>
+                    {{-- :value="@old('developer')" --}}
+                    value="{{ old('developer', $game->developer) }}"
+                    ></x-text-input>
+
+                    @if ($errors->has('developer'))
+                        <p class="error">{{$errors->first('developer')}}</p>
+                    @endif
 
                     <textarea
                     name="description"
@@ -36,26 +47,35 @@
                     field="description"
                     placeholder="Start typing here..."
                     class="w-full mt-6"
-                    >{{@old('description')}}</textarea>
+                    >{{@old('description', $game->description)}}</textarea>
+
+                    @if ($errors->has('description'))
+                    <p class="error">{{$errors->first('description')}}</p>
+                @endif
 
                     <select name="category" id="category" field="category">
-                        <option value="">{{($games->genre === '') ? 'Selected' : ''}} Select Genre</option>
-                        <option value="horror" {{($games->genre === 'horror') ? 'Selected' : ''}}>Horror</option>
-                        <option value="act-ad" {{($games->genre === 'act-ad') ? 'Selected' : ''}}>Action-Adventure</option>
-                        <option value="thriller" {{($games->genre === 'thriller') ? 'Selected' : ''}}>Thriller</option>
-                        <option value="evg" {{($games->genre === 'evg') ? 'Selected' : ''}}>Episodic Video Game</option>
-                        <option value="puzzle" {{($games->genre === 'puzzle') ? 'Selected' : ''}}>Puzzle</option>
-                        <option value="rgp" {{($games->genre === 'rpg') ? 'Selected' : ''}}>RPG</option>
-                    </select>
+                        {{-- <option value="test">test</option> --}}
+                        <option value="">{{($game->category === '') ? 'Select Category' : ''}}</option>
+                        <option value="horror" {{($game->category === 'horror') ? 'Selected' : ''}}>Horror</option>
+                        <option value="act-ad" {{($game->category === 'act-ad') ? 'Selected' : ''}}>Action-Adventure</option>
+                        <option value="thriller" {{($game->category === 'thriller') ? 'Selected' : ''}}>Thriller</option>
+                        <option value="evg" {{($game->category === 'evg') ? 'Selected' : ''}}>Episodic Video Game</option>
+                        <option value="puzzle" {{($game->category === 'puzzle') ? 'Selected' : ''}}>Puzzle</option>
+                        <option value="rgp" {{($game->category === 'rpg') ? 'Selected' : ''}}>RPG</option>
+                        </select>
+
+                        @if ($errors->has('category'))
+                        <p class="error">{{$errors->first('category')}}</p>
+                    @endif
 
                     <input
                     type="file"
                     name="game_image"
                     field="game_image"
                     placeholder="Game Cover"
-                    class="w-full mt-6"
+                    class="w-full mt-6">
                     
-                    />
+                    
 
                     <x-primary-button class="mt-6">Save Game</x-primary-button>
                 </form>

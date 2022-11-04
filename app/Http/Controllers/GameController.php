@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Game;
@@ -44,14 +45,13 @@ class GameController extends Controller
             'description' => 'required|max:500',
             'category' => 'required',
             'developer' => 'required',
-            'game_image' => 'file|image|dimensions:width300,height=400',
+            // 'game_image' => 'file|image|dimensions:width300,height=400',
             'game_image' => 'file|image',
         ]);
 
         $game_image = $request->file('game_image');
         $extension = $game_image->getClientOriginalExtension();
         $filename = date('Y-m-d-His') . '_' . $request->input('title') . '.' . $extension;
-
 
         $path = $game_image->storeAs('public/images', $filename);
 
@@ -62,9 +62,9 @@ class GameController extends Controller
             'user_id' => Auth::id(),
             'title' => $request->title,
             'description' => $request->description,
-            'category' => $request->category,
             'game_image' => $filename,
-            'developer' => $request->developer
+            'developer' => $request->developer,
+            'category' => $request->category
 
         ]);
 
@@ -83,7 +83,7 @@ class GameController extends Controller
         // This is OK for web application development, but not for API development as
         // API's return JSON not Views.
 
-        if($game->user_id != Auth::id()) {
+        if ($game->user_id != Auth::id()) {
             return abort(403);
         }
 
@@ -98,7 +98,7 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
-        if($game->user_id != Auth::id()) {
+        if ($game->user_id != Auth::id()) {
             return abort(403);
         }
 
@@ -115,22 +115,38 @@ class GameController extends Controller
     public function update(Request $request, Game $game)
     {
 
-        if($game->user_id != Auth::id()) {
+        if ($game->user_id != Auth::id()) {
             return abort(403);
         }
 
         $request->validate([
-            'title' => 'required|max:120',
-            'text' => 'required'
+            'title' => 'required',
+            'description' => 'required|max:500',
+            'category' => 'required',
+            'developer' => 'required',
+            'game_image' => 'file|image'
         ]);
+
+        // dd($request);
+        $game_image = $request->file('game_image');
+        $extension = $game_image->getClientOriginalExtension();
+        $filename = date('Y-m-d-His') . '_' . $request->input('title') . '.' . $extension;
+
+
+        $path = $game_image->storeAs('public/images', $filename);
 
         $game->update([
 
             'title' => $request->title,
-            'text' => $request->text
+            'description' => $request->description,
+            'category' => $request->category,
+            'game_image' => $filename,
+            'developer' => $request->developer
         ]);
 
-        return to_route('games.show', $game)->with('success','Game Info updated successfully');
+
+
+        return to_route('games.show', $game)->with('success', 'Game Info updated successfully');
     }
 
     /**
@@ -142,12 +158,12 @@ class GameController extends Controller
     public function destroy(Game $game)
     {
 
-        if($game->user_id != Auth::id()) {
+        if ($game->user_id != Auth::id()) {
             return abort(403);
         }
 
         $game->delete();
 
-        return to_route('games.index')->with('success','Game Info deleted successfully');
+        return to_route('games.index')->with('success', 'Game Info deleted successfully');
     }
 }
