@@ -36,3 +36,5 @@ html{
 .text{
     font-family: 'Poiret One', cursive;
 }
+
+.error{color: red;}
