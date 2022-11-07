@@ -1,5 +1,5 @@
 <?php
-
+// not used - used own information
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;

@@ -6,6 +6,7 @@ html{
     font-size: x-large;
 }
 
+/* button styles */
 @layer components {
     .btn-link  {
         @apply inline-block px-4 py-2 bg-indigo-700 rounded-md font-bold text-sm text-white uppercase
@@ -29,6 +30,7 @@ html{
     }
 }
 
+/* font styles */
 .font{
     font-family: 'Press Start 2P', cursive;
 }

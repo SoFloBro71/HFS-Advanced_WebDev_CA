@@ -15,6 +15,7 @@
         </style>
 
         <style>
+            /* changes font family of title */
             body {
                 font-family: 'Nunito', sans-serif;
             }

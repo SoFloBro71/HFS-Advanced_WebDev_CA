@@ -19,6 +19,8 @@
                         autocomplete="off"
                         :value="@old('title')"></x-text-input>
 
+
+                        {{-- displays error message showing that text input is missing--}}
                         @if ($errors->has('title'))
                         <p class="error">{{$errors->first('title')}}</p>
                     @endif
@@ -32,6 +34,7 @@
                         autocomplete="off"
                         :value="@old('developer')"></x-text-input>
 
+                        {{-- displays error message showing that text input is missing--}}
                         @if ($errors->has('developer'))
                         <p class="error">{{$errors->first('developer')}}</p>
                     @endif
@@ -42,12 +45,16 @@
                         field="description"
                         placeholder="Start typing here..."
                         class="w-full mt-6"
+                        {{-- hold previously entered info to save time of text field is missed --}}
                         >{{@old('description')}}</textarea>
 
+
+                        {{-- displays error message showing that text input is missing--}}
                         @if ($errors->has('description'))
                         <p class="error">{{$errors->first('description')}}</p>
                     @endif
 
+                    {{-- creates a dropdown menu for category options --}}
                         <select name="category" id="category" field="category">
                             <option value="">Select Genre</option>
                             <option value="horror">Horror</option>
@@ -58,8 +65,7 @@
                             <option value="rgp">RPG</option>
                         </select>
 
-
-
+                         {{-- allows you to choose image file--}}
                         <input
                         type="file"
                         name="game_image"

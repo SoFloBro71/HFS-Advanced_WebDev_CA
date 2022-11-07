@@ -22,6 +22,7 @@
                     {{-- :value="@old('title')" --}}
                     value="{{ old('title', $game->title) }}"></x-text-input>
 
+                    {{-- displays error message showing that text input is missing--}}
                     @if ($errors->has('title'))
                         <p class="error">{{$errors->first('title')}}</p>
                     @endif
@@ -37,6 +38,7 @@
                     value="{{ old('developer', $game->developer) }}"
                     ></x-text-input>
 
+                    {{-- displays error message showing that text input is missing--}}
                     @if ($errors->has('developer'))
                         <p class="error">{{$errors->first('developer')}}</p>
                     @endif
@@ -49,12 +51,13 @@
                     class="w-full mt-6"
                     >{{@old('description', $game->description)}}</textarea>
 
+                     {{-- displays error message showing that text input is missing--}}
                     @if ($errors->has('description'))
                     <p class="error">{{$errors->first('description')}}</p>
                 @endif
 
+                 {{-- creates a dropdown menu for category options and retains previously chosen option from create --}}
                     <select name="category" id="category" field="category">
-                        {{-- <option value="test">test</option> --}}
                         <option value="">{{($game->category === '') ? 'Select Category' : ''}}</option>
                         <option value="horror" {{($game->category === 'horror') ? 'Selected' : ''}}>Horror</option>
                         <option value="act-ad" {{($game->category === 'act-ad') ? 'Selected' : ''}}>Action-Adventure</option>
@@ -64,10 +67,12 @@
                         <option value="rgp" {{($game->category === 'rpg') ? 'Selected' : ''}}>RPG</option>
                         </select>
 
+                        {{-- displays error message showing that input is missing--}}
                         @if ($errors->has('category'))
                         <p class="error">{{$errors->first('category')}}</p>
                     @endif
 
+                    {{-- allows you to choose image file--}}
                     <input
                     type="file"
                     name="game_image"

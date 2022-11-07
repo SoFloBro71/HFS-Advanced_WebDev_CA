@@ -1,4 +1,4 @@
-
+{{-- pulls fonts from google fonts and applies them to page --}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -18,6 +18,7 @@
 
             <x-alert-success>
 
+                {{-- displays success message if new game is created--}}
                 {{session('success')}}
 
             </x-alert-success> 
@@ -27,6 +28,7 @@
                 <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg flex">
                     <div>
                         <h2 class="text">
+                            {{-- displays info entered saved from database--}}
                             <a href="{{ route('games.show', $game) }}">{{ $game->title }}</a>
                             <p>{{ $game->developer }}</p>
                             <p>{{ $game->description }}</p>

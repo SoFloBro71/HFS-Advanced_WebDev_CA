@@ -10,20 +10,20 @@ use Illuminate\Http\Request;
 class GameController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Displays a listing of the resource made in order of new to old.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //Fetch motes in order of when they were last updated - latest updated returned first
+        //Fetches games in order of when they were last updated - latest updated returned first
         $games = Game::where('user_id', Auth::id())->latest('updated_at')->paginate();
         // dd($games);
         return view('games.index')->with('games', $games);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Shows the create form for creating new resources.
      *
      * @return \Illuminate\Http\Response
      */
@@ -33,31 +33,35 @@ class GameController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stores newly created resources in storage file.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        // validates inputs and makes sure all needed info is added in order to create
         $request->validate([
             'title' => 'required',
             'description' => 'required|max:500',
             'category' => 'required',
             'developer' => 'required',
+            
             // 'game_image' => 'file|image|dimensions:width300,height=400',
             'game_image' => 'file|image',
         ]);
 
+        // changes the name of image file as to not have same file names 
         $game_image = $request->file('game_image');
         $extension = $game_image->getClientOriginalExtension();
+
+        // changes image name to a year-month-date format
         $filename = date('Y-m-d-His') . '_' . $request->input('title') . '.' . $extension;
 
         $path = $game_image->storeAs('public/images', $filename);
 
         Game::create([
-            // Ensure you have the use statement for 
-            // Illuminate\Support\Str at the top of this file.
+            // 
             'uuid' => Str::uuid(),
             'user_id' => Auth::id(),
             'title' => $request->title,
@@ -72,7 +76,7 @@ class GameController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Displays the selected resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -80,8 +84,6 @@ class GameController extends Controller
     public function show(Game $game)
     {
         // /Game | findOrFail() firstOrFail() return a 404 not found view if not found.
-        // This is OK for web application development, but not for API development as
-        // API's return JSON not Views.
 
         if ($game->user_id != Auth::id()) {
             return abort(403);
@@ -91,7 +93,7 @@ class GameController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Shows the edit form for the resource you've selected to edit.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -106,7 +108,7 @@ class GameController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Updates the selected resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -144,13 +146,13 @@ class GameController extends Controller
             'developer' => $request->developer
         ]);
 
-
+        // adds a message at top of screen when resource is deleted successfully
 
         return to_route('games.show', $game)->with('success', 'Game Info updated successfully');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Removes the selected resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -163,6 +165,8 @@ class GameController extends Controller
         }
 
         $game->delete();
+
+        // adds a message at top of screen when resource is deleted successfully
 
         return to_route('games.index')->with('success', 'Game Info deleted successfully');
     }

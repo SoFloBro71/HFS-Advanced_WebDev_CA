@@ -1,5 +1,6 @@
 <?php
 
+// not used - used own information
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
