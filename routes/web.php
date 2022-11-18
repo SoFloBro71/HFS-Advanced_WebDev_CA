@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\GameController;
+use App\Http\Controllers\Admin\Gamecontroller as AdminGameController;
+use App\Http\Controllers\User\Gamecontroller as UserGameController;
+use Database\Seeders\GameSeeder;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +25,14 @@ Route::get('/games', function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.games');
 
-Route::get('/home', function () {
-    return view('home');
-});
+// Route::resource("/games", GameController::class)->middleware(['auth']);
 
+// Route::get('/index', [GameController::class, "index"])->middleware(["auth"]);
 
-Route::resource("/games", GameController::class)->middleware(['auth']);
+// Creates routes for Games and will only work for the user that is logged in at the time
 
-Route::get('/index', [GameController::class, "index"])->middleware(["auth"]);
+Route::resource('/admin/games', AdminGameController::class)->middleware(['auth'])->names('admin.games');
+
+Route::resource('/user/games', UserGameController::class)->middleware(['auth'])->names('user.games')->only(['index','show']);

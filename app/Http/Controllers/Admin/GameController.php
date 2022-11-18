@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+namespace App\Http\Controllers;
 use App\Models\Game;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +17,12 @@ class GameController extends Controller
      */
     public function index()
     {
-        //Fetches games in order of when they were last updated - latest updated returned first
-        $games = Game::where('user_id', Auth::id())->latest('updated_at')->paginate();
-        // dd($games);
-        return view('games.index')->with('games', $games);
+        $user = Auth::user();
+        $user->authorizeRole('admin');
+
+        $games = Game::paginate(10);
+
+        return view('admin.games.index')->with('games', $games);
     }
 
     /**
