@@ -55,6 +55,7 @@ class GameController extends Controller
         $game_image = $request->file('game_image');
         $extension = $game_image->getClientOriginalExtension();
 
+        
         // changes image name to a year-month-date format
         $filename = date('Y-m-d-His') . '_' . $request->input('title') . '.' . $extension;
 
@@ -129,13 +130,17 @@ class GameController extends Controller
             'game_image' => 'file|image'
         ]);
 
-        // dd($request);
-        $game_image = $request->file('game_image');
-        $extension = $game_image->getClientOriginalExtension();
-        $filename = date('Y-m-d-His') . '_' . $request->input('title') . '.' . $extension;
-
-
-        $path = $game_image->storeAs('public/images', $filename);
+        // dd($game);
+        if ($request->file('game_image')) {
+            $game_image = $request->file('game_image');
+            $extension = $game_image->getClientOriginalExtension();
+            $filename = date('Y-m-d-His') . '_' . $request->input('title') . '.' . $extension;
+    
+            // checks request for new image and if no new image then it takes from old image
+            $path = $game_image->storeAs('public/images', $filename);
+        } else {
+            $filename = $game->game_image;
+        }
 
         $game->update([
 
