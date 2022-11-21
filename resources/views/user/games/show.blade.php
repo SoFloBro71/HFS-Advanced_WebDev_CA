@@ -14,27 +14,6 @@
 
             </x-alert-success> 
             
-            <div class="flex">
-                <p class="opacity-70">
-
-                    {{-- shows timestamp of when game was created --}}
-                    <strong>Created: </strong> {{ $game->created_at->diffForHumans() }}
-                </p>
-                <p class="opacity-70 ml-8">
-
-                    {{-- shows timestamp of when game was last updated --}}
-                    <strong>Updated at: </strong> {{ $game->updated_at->diffForHumans() }}
-
-                    {{-- takes you to edit page --}}
-                </p>
-                <a href="{{ route('games.edit', $game) }}" class="btn-link ml-auto">Edit Game</a>
-                <form action="{{ route('games.destroy', $game) }}" method="post">
-                    @method('delete')
-
-                    {{-- displays popup allowing you the chance to either confirm yuor choice to delete a game or change your mind--}}
-                    @csrf
-                    <button type="submit" class="btn btn-danger ml-4" onclick="return confirm('Are you sure you wish to delete this Game?')">Delete Game</button>
-            </div>
             <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
                 <table class="table table-hover">
                     <tbody>
