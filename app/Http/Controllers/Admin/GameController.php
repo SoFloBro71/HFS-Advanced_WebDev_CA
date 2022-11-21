@@ -32,7 +32,10 @@ class GameController extends Controller
      */
     public function create()
     {
-        return view('games.create');
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+        return view('admin.games.create');
     }
 
     /**
