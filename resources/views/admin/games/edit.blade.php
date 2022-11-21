@@ -51,12 +51,12 @@
                     class="w-full mt-6"
                     >{{@old('description', $game->description)}}</textarea>
 
-                     {{-- displays error message showing that text input is missing--}}
+                    {{-- displays error message showing that text input is missing--}}
                     @if ($errors->has('description'))
                     <p class="error">{{$errors->first('description')}}</p>
                 @endif
 
-                 {{-- creates a dropdown menu for category options and retains previously chosen option from create --}}
+                {{-- creates a dropdown menu for category options and retains previously chosen option from create --}}
                     <select name="category" id="category" field="category">
                         <option value="">{{($game->category === '') ? 'Select Category' : ''}}</option>
                         <option value="horror" {{($game->category === 'horror') ? 'Selected' : ''}}>Horror</option>

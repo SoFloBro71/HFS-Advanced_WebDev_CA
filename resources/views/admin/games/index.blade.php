@@ -23,13 +23,13 @@
 
             </x-alert-success> 
             
-            <a href="{{ route('games.create') }}" class="btn-link btn-lg mb-2">+ New Game</a>
+            <a href="{{ route('admin.games.create') }}" class="btn-link btn-lg mb-2">+ New Game</a>
             @forelse ($games as $game)
                 <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg flex">
                     <div>
                         <h2 class="text">
                             {{-- displays info entered saved from database--}}
-                            <a href="{{ route('games.show', $game) }}">{{ $game->title }}</a>
+                            <a href="{{ route('admin.games.show', $game) }}">{{ $game->title }}</a>
                             <p>{{ $game->developer }}</p>
                             <p>{{ $game->description }}</p>
                             <p>{{ $game->category }}</p>

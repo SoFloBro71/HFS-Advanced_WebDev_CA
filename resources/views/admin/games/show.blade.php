@@ -27,8 +27,8 @@
 
                     {{-- takes you to edit page --}}
                 </p>
-                <a href="{{ route('games.edit', $game) }}" class="btn-link ml-auto">Edit Game</a>
-                <form action="{{ route('games.destroy', $game) }}" method="post">
+                <a href="{{ route('admin.games.edit', $game) }}" class="btn-link ml-auto">Edit Game</a>
+                <form action="{{ route('admin.games.destroy', $game) }}" method="post">
                     @method('delete')
 
                     {{-- displays popup allowing you the chance to either confirm yuor choice to delete a game or change your mind--}}
