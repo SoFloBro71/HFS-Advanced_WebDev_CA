@@ -8,11 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Game extends Model
 {
     use HasFactory;
-
-    protected $guarded = [];
+    
+    protected $fillable = ['title', 'description', 'genre', 'developer', 'likes', 'game_image', 'publisher_id'];
+    // protected $guarded = [];
 
     public function getRouteKeyName()
     {
         return 'uuid';
+    }
+
+    public function publisher()
+    {
+        return $this->belongsTo(Publisher::class);
     }
 }
