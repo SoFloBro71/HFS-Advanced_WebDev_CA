@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
+use App\Http\Controllers\Controller;
+
 
 use App\Models\Game;
 use Illuminate\Support\Str;
@@ -17,7 +19,7 @@ class GameController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $user->authorizeRole('user');
+        $user->authorizeRoles('user');
 
         $games = Game::paginate(10);
 
@@ -39,7 +41,7 @@ class GameController extends Controller
             return abort(403);
         }
 
-        return view('games.show')->with('game', $game);
+        return view('user.games.show')->with('game', $game);
     }
 
     // /**

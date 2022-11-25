@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-namespace App\Http\Controllers;
+use App\Http\Controllers\Controller;
 use App\Models\Game;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +18,7 @@ class GameController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $user->authorizeRole('admin');
+        $user->authorizeRoles('admin');
 
         $games = Game::paginate(10);
 
@@ -78,7 +78,7 @@ class GameController extends Controller
 
         ]);
 
-        return to_route('games.index');
+        return to_route('admin.games.index');
     }
 
     /**
@@ -95,7 +95,7 @@ class GameController extends Controller
             return abort(403);
         }
 
-        return view('games.show')->with('game', $game);
+        return view('admin.games.show')->with('game', $game);
     }
 
     /**
@@ -111,7 +111,7 @@ class GameController extends Controller
             return abort(403);
         }
 
-        return view('games.edit')->with('game', $game);
+        return view('admin.games.edit')->with('game', $game);
     }
 
     /**
@@ -136,14 +136,19 @@ class GameController extends Controller
             'game_image' => 'file|image'
         ]);
 
+
+
         // dd($request);
-        $game_image = $request->file('game_image');
-        $extension = $game_image->getClientOriginalExtension();
-        // chamges file name to date-month-year format
-        $filename = date('Y-m-d-His') . '_' . $request->input('title') . '.' . $extension;
-
-
-        $path = $game_image->storeAs('public/images', $filename);
+        if ($request->file('game_image')) {
+            $game_image = $request->file('game_image');
+            $extension = $game_image->getClientOriginalExtension();
+            $filename = date('Y-m-d-His') . '_' . $request->input('title') . '.' . $extension;
+    
+            // checks request for new image and if no new image then it takes from old image
+            $path = $game_image->storeAs('public/images', $filename);
+        } else {
+            $filename = $game->game_image;
+        }
 
         $game->update([
 
@@ -156,7 +161,7 @@ class GameController extends Controller
 
         // adds a message at top of screen when resource is deleted successfully
 
-        return to_route('games.show', $game)->with('success', 'Game Info updated successfully');
+        return to_route('admin.games.show', $game)->with('success', 'Game Info updated successfully');
     }
 
     /**
@@ -176,6 +181,6 @@ class GameController extends Controller
 
         // adds a message at top of screen when resource is deleted successfully
 
-        return to_route('games.index')->with('success', 'Game Info deleted successfully');
+        return to_route('admin.games.index')->with('success', 'Game Info deleted successfully');
     }
 }

@@ -32,10 +32,10 @@ class HomeController extends Controller
         $home = 'home';
 
         if($user->hasRole('admin')){
-            $home = 'admin.books.index';
+            $home = 'admin.games.index';
         }
         else if ($user->hasRole('user')){
-            $home = 'user.books.index';
+            $home = 'user.games.index';
         }
         return redirect()->route($home);
     }

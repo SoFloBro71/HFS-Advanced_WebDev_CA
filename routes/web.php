@@ -25,7 +25,7 @@ Route::get('/games', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.games');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Route::resource("/games", GameController::class)->middleware(['auth']);
 
