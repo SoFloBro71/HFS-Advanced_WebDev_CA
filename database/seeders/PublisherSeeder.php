@@ -16,8 +16,8 @@ class PublisherSeeder extends Seeder
     public function run()
     {
         Publisher::factory()
-        ->times(3)
-        ->hasGames(4)
+        ->times(4)
+        ->hasGames(10)
         ->create();
     }
 }
