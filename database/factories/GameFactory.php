@@ -2,6 +2,7 @@
 // not used - used own information
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,11 +18,14 @@ class GameFactory extends Factory
     public function definition()
     {
         return [
+            'uuid' => Str::uuid(),
             'title' => $this->faker->word,
-            'genre' => $this->faker->text(50),
-            // 'game_image' => "file_name/images/image name"
+            'category' => $this->faker->text(50),
+            'game_image' => "file_name/images/image name",
             'description' => $this->faker->text(200),
-            'author' => $this->faker->name
+            'developer' => $this->faker->name,
+            
+          //  'publisher_id' => $this->faker->name
         ];
     }
 }

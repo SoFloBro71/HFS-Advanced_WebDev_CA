@@ -35,6 +35,10 @@
                             <p>{{ $game->category }}</p>
                         </h2>
                         <p class="mt-2">
+                            <h3 class="font-bold text-1xl"> <strong> Publisher Name </strong>
+                                {{$game->publisher->name}}
+                            </h3>
+
                             {{ Str::limit($game->text, 200) }}
                         </p>
                         <span class="block mt-4 text-sm opacity-70">{{ $game->updated_at->diffForHumans() }}</span>
@@ -44,7 +48,7 @@
             @empty
             <p>You have no Games yet.</p>
             @endforelse
-            {{$games->links()}}
+            {{-- {{$games->links()}} --}}
         </div>
     </div>
 </x-app-layout>

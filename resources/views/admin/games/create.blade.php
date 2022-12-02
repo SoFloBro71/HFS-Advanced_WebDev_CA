@@ -73,7 +73,16 @@
                         placeholder="Game Cover"
                         class="w-full mt-6">
                     
-
+                        <div class="form-group">
+                            <label for="publisher">Publisher</label>
+                            <select name="publisher_id">
+                                @foreach ($publishers as $publisher)
+                                <option value="{{$publisher->id}}" {{(old('publisher_id') == $publisher_id) ? "selected" : ""}}>
+                                    {{$publisher->name}}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
 
                     <x-primary-button class="mt-6">Save Game</x-primary-button>
                 </form>

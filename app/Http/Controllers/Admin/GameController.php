@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Game;
+use App\Models\Publisher;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -20,8 +21,10 @@ class GameController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-        $games = Game::paginate(10);
+        $games = Game::with('publisher')->get();
 
+        // $games = Game::paginate(10);
+       //  dd($games);
         return view('admin.games.index')->with('games', $games);
     }
 
@@ -35,7 +38,8 @@ class GameController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-        return view('admin.games.create');
+        $publishers = Publisher::all();
+        return view('admin.games.create')->with('publishers',$publishers);
     }
 
     /**
@@ -52,9 +56,9 @@ class GameController extends Controller
             'description' => 'required|max:500',
             'category' => 'required',
             'developer' => 'required',
-            
             // 'game_image' => 'file|image|dimensions:width300,height=400',
             'game_image' => 'file|image',
+            'publisher_id' => 'required'
         ]);
 
         // changes the name of image file as to not have same file names 
@@ -74,7 +78,8 @@ class GameController extends Controller
             'description' => $request->description,
             'game_image' => $filename,
             'developer' => $request->developer,
-            'category' => $request->category
+            'category' => $request->category,
+            'publisher_id' => $request->publisher_id,
 
         ]);
 
@@ -91,7 +96,10 @@ class GameController extends Controller
     {
         // /Game | findOrFail() firstOrFail() return a 404 not found view if not found.
 
-        if ($game->user_id != Auth::id()) {
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+        if (!Auth::id()) {
             return abort(403);
         }
 
@@ -107,9 +115,9 @@ class GameController extends Controller
     public function edit(Game $game)
     {
         // iff not found error 403 pops up
-        if ($game->user_id != Auth::id()) {
-            return abort(403);
-        }
+
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
 
         return view('admin.games.edit')->with('game', $game);
     }
@@ -124,9 +132,8 @@ class GameController extends Controller
     public function update(Request $request, Game $game)
     {
 
-        if ($game->user_id != Auth::id()) {
-            return abort(403);
-        }
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
 
         $request->validate([
             'title' => 'required',
@@ -135,8 +142,6 @@ class GameController extends Controller
             'developer' => 'required',
             'game_image' => 'file|image'
         ]);
-
-
 
         // dd($request);
         if ($request->file('game_image')) {
@@ -172,11 +177,8 @@ class GameController extends Controller
      */
     public function destroy(Game $game)
     {
-
-        if ($game->user_id != Auth::id()) {
-            return abort(403);
-        }
-
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
         $game->delete();
 
         // adds a message at top of screen when resource is deleted successfully

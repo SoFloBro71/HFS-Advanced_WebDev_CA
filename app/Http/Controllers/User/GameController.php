@@ -22,6 +22,7 @@ class GameController extends Controller
         $user->authorizeRoles('user');
 
         $games = Game::paginate(10);
+        // $games = Game::with('publisher')->get();
 
         return view('user.games.index')->with('games', $games);
     }

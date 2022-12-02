@@ -60,6 +60,12 @@
                             <td class="font-bold">Category </td>
                             <td >{{ $game->category}}</td>
                         </tr>
+
+                        <tr>
+                            <td class="font-bold">Publisher Address </td>
+                            <td >{{ $game->publisher->address}}</td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>
