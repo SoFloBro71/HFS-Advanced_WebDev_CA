@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('game_orders', function (Blueprint $table) {
+        Schema::create('game_order', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id');
             $table->decimal('shipping_cost');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('game_orders');
+        Schema::dropIfExists('game_order');
     }
 };

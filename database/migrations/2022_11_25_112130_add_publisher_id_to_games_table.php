@@ -28,7 +28,8 @@ return new class extends Migration
     {
         Schema::table('games', function (Blueprint $table) {
             $table->dropForeign(['publisher_id']);
-            $table->dropColumn('publisher');
+            $table->drop();
+            // $table->dropColumn('publisher');
         });
     }
 };

@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-            $table->foreignId('user_id')->constrained();
             $table->string('title');
             $table->longText('description');
             $table->string('category');

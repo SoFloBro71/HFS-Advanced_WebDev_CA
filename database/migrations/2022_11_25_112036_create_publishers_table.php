@@ -28,6 +28,7 @@ return new class extends Migration
      */
     public function down()
     {
+      //  $table->dropForeign(['publisher_id']);
         Schema::dropIfExists('publishers');
     }
 };
