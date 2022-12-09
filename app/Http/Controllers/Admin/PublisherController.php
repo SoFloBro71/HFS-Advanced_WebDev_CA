@@ -19,10 +19,9 @@ class PublisherController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-    $publishers = Publisher::all();
-       // $publishers = Publisher::paginate(10);
-       // need to test if with 'books' works
-       // $publishers = Publisher::with('books')->get();
+        $publishers = Publisher::all();
+        $publishers = Publisher::paginate(10);
+        $publishers = Publisher::with('games')->get();
 
         return view('admin.publishers.index')->with('publishers', $publishers);
     }
@@ -72,9 +71,12 @@ class PublisherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Publisher $publisher)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+        return view('admin.publishers.edit')->with('publisher', $publisher);
     }
 
     /**
@@ -84,9 +86,21 @@ class PublisherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update( Request $request, Publisher $publisher)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+        if(!Auth::id()) {
+            return abort(403);
+        }
+
+        $request->validate([
+            'Publisher Name' => 'required',
+            'Publisher Address' => 'required|max:500'
+        ]);
+
+        return view('admin.publishers.update')->with('publisher', $publisher);
     }
 
     /**
@@ -95,8 +109,16 @@ class PublisherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Publisher $publisher)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+        $publisher->delete();
+
+        if(!Auth::id()) {
+            return abort(403);
+        }
+
+        return view('admin.publishers.delete')->with('publisher', $publisher)->with('success', 'Game Info deleted successfully');
     }
 }
