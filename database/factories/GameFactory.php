@@ -23,7 +23,7 @@ class GameFactory extends Factory
             'category' => $this->faker->text(50),
             'game_image' => "file_name/images/image name",
             'description' => $this->faker->text(200),
-            'developer' => $this->faker->name,
+            // 'developer' => $this->faker->name,
             
           //  'publisher_id' => $this->faker->name
         ];

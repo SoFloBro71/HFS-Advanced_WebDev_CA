@@ -16,8 +16,10 @@ class DeveloperFactory extends Factory
      */
     public function definition()
     {
-        return [
-            //
+        return [ 
+            'name' => $this->faker->name,
+            'address' => $this->faker->address,
+            'bio' => $this->faker->realText,
         ];
     }
 }

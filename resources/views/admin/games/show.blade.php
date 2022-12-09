@@ -66,10 +66,12 @@
                             <td >{{ $game->publisher->address}}</td>
                         </tr>
 
-                        @foreach ($book->developers as $developer)
+                        @foreach ($game->developers as $developer)
                         <tr>
-                            <td >
-
+                            <td class="font-bold">Developer </td>
+                            <td> {{$developer->name}}</td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

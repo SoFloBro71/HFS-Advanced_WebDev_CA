@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('developer_id');
             $table->unsignedBigInteger('game_id');
 
-            $table->foreign('developer_id')->references('id')->on('developers')->onUpdate('cascade')->onDelete('restrict');
-            $table->foreign('game_id')->references('id')->on('games')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('developer_id')->references('id')->on('developers')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('game_id')->references('id')->on('games')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
