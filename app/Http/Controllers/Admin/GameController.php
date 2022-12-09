@@ -21,7 +21,9 @@ class GameController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-        $games = Game::with('publisher')->get();
+        $games = Game::with('publisher')
+        //  ->with('developer')
+        ->get();
 
         // $games = Game::paginate(10);
        //  dd($games);

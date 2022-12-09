@@ -30,7 +30,7 @@ class HomeController extends Controller
        // dd($request);
 
         $user = Auth::user();
-        $home = 'admin.games.index';
+        $home = 'home';
 
         if($user->hasRole('admin')){
             $home = 'admin.games.index';
@@ -43,4 +43,22 @@ class HomeController extends Controller
         return redirect()->route($home);
     }
     
+    public function publisherIndex(Request $request)
+    {
+       // dd($request);
+
+        $user = Auth::user();
+        $home = 'home';
+
+        if($user->hasRole('admin')){
+            $home = 'admin.publishers.index';
+        }
+        else if ($user->hasRole('user')){
+            $home = 'user.publishers.index';
+        }
+
+        // dd($home);
+        return redirect()->route($home);
+    }
+
 }

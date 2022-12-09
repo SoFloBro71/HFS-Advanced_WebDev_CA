@@ -36,11 +36,7 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        // /Game | findOrFail() firstOrFail() return a 404 not found view if not found.
-
-        if ($game->user_id != Auth::id()) {
-            return abort(403);
-        }
+        // /Game | findOrFail() firstOrFail() return a 404 not found view if not found
 
         return view('user.games.show')->with('game', $game);
     }

@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
         
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
+        // PublisherSeeder calls hasGames() and creates the games table with 10 games for each publisher
         $this->call(PublisherSeeder::class);
+        // DeveloperSeeder creates developers with games from DB and randomly assigns Devs to many games
+        $this->call(DeveloperSeeder::class);
     }
 }

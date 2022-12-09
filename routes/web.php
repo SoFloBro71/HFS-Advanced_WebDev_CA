@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Admin\GameController as AdminGameController;
 use App\Http\Controllers\User\GameController as UserGameController;
+use App\Http\Controllers\User\PublisherController as UserPublisherController;
+use App\Http\Controllers\Admin\PublisherController as AdminPublisherController;
+
 use Database\Seeders\GameSeeder;
 use Illuminate\Support\Facades\Route;
 /*
